@@ -1,0 +1,19 @@
+PODS:
+  - ActionSheetPicker-3.0 (2.0.5)
+  - Alamofire (3.3.1)
+  - GoogleMaps (1.13.0)
+  - MagicalRecord/Shorthand (2.2)
+
+DEPENDENCIES:
+  - ActionSheetPicker-3.0
+  - Alamofire (~> 3.3)
+  - GoogleMaps
+  - MagicalRecord/Shorthand
+
+SPEC CHECKSUMS:
+  ActionSheetPicker-3.0: 8312778b6815578e6a86d630fbcf31dc94c534e7
+  Alamofire: 369bc67b6f5ac33ded3648d7bd21c5bfb91c2ecc
+  GoogleMaps: 7a6caeb8336d7cb42982e969fc9b1b20a889fe79
+  MagicalRecord: 2dc87179ae7c1f2a274442624ec65a07d4357a6f
+
+COCOAPODS: 0.39.0

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TripViewController" customModule="iBus" customModuleProvider="target">
+            <connections>
+                <outlet property="btnReverse" destination="1G5-RV-PeB" id="Ruw-B9-x7Y"/>
+                <outlet property="mapView" destination="XFx-Jw-vYI" id="ZGq-TE-ZCb"/>
+                <outlet property="tableView" destination="wB1-HW-CiU" id="sJi-o7-Ifm"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XFx-Jw-vYI" userLabel="Map View">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="189"/>
+                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="189" id="eSl-U9-AWc"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bn9-oI-s5J">
+                    <rect key="frame" x="0.0" y="189" width="320" height="379"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1G5-RV-PeB">
+                            <rect key="frame" x="15" y="8" width="67" height="30"/>
+                            <state key="normal" title="Đổi Chiều"/>
+                            <connections>
+                                <action selector="btnChangeDirectionClicked:" destination="-1" eventType="touchUpInside" id="B87-QX-2XI"/>
+                            </connections>
+                        </button>
+                        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="wB1-HW-CiU">
+                            <rect key="frame" x="0.0" y="40" width="320" height="339"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <outlet property="dataSource" destination="-1" id="ys6-lj-h8N"/>
+                                <outlet property="delegate" destination="-1" id="mgC-6X-FAV"/>
+                            </connections>
+                        </tableView>
+                    </subviews>
+                    <color key="backgroundColor" red="0.028222155049999999" green="0.70196078429999997" blue="0.85882352939999995" alpha="0.177981895" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="wB1-HW-CiU" secondAttribute="bottom" id="QEH-8B-05g"/>
+                        <constraint firstItem="wB1-HW-CiU" firstAttribute="leading" secondItem="Bn9-oI-s5J" secondAttribute="leading" id="azy-NX-jFy"/>
+                        <constraint firstAttribute="trailing" secondItem="wB1-HW-CiU" secondAttribute="trailing" id="nbI-BP-QZb"/>
+                        <constraint firstItem="wB1-HW-CiU" firstAttribute="top" secondItem="1G5-RV-PeB" secondAttribute="bottom" constant="2" id="nbj-lq-pku"/>
+                        <constraint firstItem="1G5-RV-PeB" firstAttribute="top" secondItem="Bn9-oI-s5J" secondAttribute="top" constant="8" id="sCV-hd-G3C"/>
+                        <constraint firstItem="1G5-RV-PeB" firstAttribute="leading" secondItem="Bn9-oI-s5J" secondAttribute="leading" constant="15" id="ywd-GZ-gmh"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="XFx-Jw-vYI" secondAttribute="trailing" id="0ON-3v-agA"/>
+                <constraint firstAttribute="bottom" secondItem="Bn9-oI-s5J" secondAttribute="bottom" id="6t1-lZ-06u"/>
+                <constraint firstItem="XFx-Jw-vYI" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="AN5-aa-wkX"/>
+                <constraint firstItem="XFx-Jw-vYI" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="F2J-Bf-dKT"/>
+                <constraint firstItem="Bn9-oI-s5J" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Pid-KY-GwJ"/>
+                <constraint firstItem="Bn9-oI-s5J" firstAttribute="top" secondItem="XFx-Jw-vYI" secondAttribute="bottom" id="VxT-1g-7cj"/>
+                <constraint firstAttribute="trailing" secondItem="Bn9-oI-s5J" secondAttribute="trailing" id="gsx-gz-9mg"/>
+            </constraints>
+            <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+            <point key="canvasLocation" x="198" y="469"/>
+        </view>
+    </objects>
+</document>

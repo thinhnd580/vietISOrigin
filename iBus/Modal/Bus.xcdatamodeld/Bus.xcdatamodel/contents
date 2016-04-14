@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10171" systemVersion="15E65" minimumToolsVersion="Xcode 7.0">
+    <entity name="Point" representedClassName="Point" syncable="YES">
+        <attribute name="id" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="lat" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="long" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="routes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Route" syncable="YES"/>
+    </entity>
+    <entity name="Route" representedClassName="Route" syncable="YES">
+        <attribute name="busNumber" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="polyline" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="routeTrip" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tripDetail" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="goPoints" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Point" syncable="YES"/>
+        <relationship name="returnPoints" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Point" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Point" positionX="-54" positionY="-9" width="128" height="120"/>
+        <element name="Route" positionX="-153" positionY="90" width="128" height="135"/>
+    </elements>
+</model>
