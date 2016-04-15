@@ -10,16 +10,21 @@ import UIKit
 import Foundation
 import GoogleMaps
 import Alamofire
+import CoreLocation
 
-class TripViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class TripViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, CLLocationManagerDelegate {
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var btnReverse: UIButton!
     @IBOutlet weak var mapView: UIView!
     
+    
     var route: Route?
     var pointList:[AnyObject] = []
     var googlemap:(GMSMapView) = GMSMapView()
+    var trackingPoint: CLLocation?
+    var locationManager: CLLocationManager = CLLocationManager()
+    var startLocation : CLLocation?
     
     override func viewWillAppear(animated: Bool) {
         self.edgesForExtendedLayout = UIRectEdge.None
@@ -31,6 +36,17 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
         super.viewDidLoad()
         self.tableView.registerNib(UINib(nibName: "DirectionCell", bundle: nil), forCellReuseIdentifier: "DirectionCell")
         
+        if let pointID = NSUserDefaults.standardUserDefaults().valueForKey("PointID") {
+            for index in 0...pointList.count-1{
+                let point = pointList[index] as! Point
+                if( (pointID as! String) == point.objectID.URIRepresentation().absoluteString){
+                    let cell = tableView.cellForRowAtIndexPath(NSIndexPath(index: index))
+                    cell?.backgroundColor = UIColor.brownColor()
+                }
+            }
+            
+        }
+        
         let camera = GMSCameraPosition.cameraWithLatitude(21.022693,
                                                           longitude: 105.8018584, zoom: 11)
         
@@ -40,6 +56,7 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
         self.googlemap = GMSMapView.mapWithFrame(CGRect.init(x: 0.0, y: 0.0, width:screenSize.width, height: self.mapView.bounds.size.height), camera: camera)
         self.googlemap.myLocationEnabled = true
         self.mapView.addSubview(self.googlemap)
+    
         
         for index in 0...pointList.count-1{
             let point = self.pointList[index] as! Point
@@ -126,7 +143,6 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
                             polyline.strokeColor = UIColor.greenColor()
                             polyline.map = self.googlemap
                             
-                            
                         }
                         
                         
@@ -135,8 +151,47 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
                         print("json error: \(error)")
                     }
                     
-                    
                 }
+        }
+        
+    }
+    
+
+    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
+        print("didFailWithError: \(error.description)")
+        let errorAlert = UIAlertView(title: "Error", message: "Failed to Get Your Location", delegate: nil, cancelButtonTitle: "Ok")
+        errorAlert.show()
+    }
+    
+    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let newLocation = locations.last! as CLLocation
+        print("current position: \(newLocation.coordinate.longitude) , \(newLocation.coordinate.latitude)")
+        print("Destination position: \((self.trackingPoint?.coordinate.longitude)) , \((self.trackingPoint?.coordinate.latitude))")
+        if self.trackingPoint == nil{
+            print("Point is not selected")
+            
+        }
+        else{
+            print("Point is selected ")
+            
+            
+            let distance = self.trackingPoint?.distanceFromLocation(newLocation)
+            print(distance!)
+            if(distance < 500){
+                var localNotification = UILocalNotification()
+                localNotification.fireDate = NSDate(timeIntervalSinceNow: 5)
+                localNotification.alertBody = "new Blog Posted at iOScreator.com"
+                localNotification.timeZone = NSTimeZone.defaultTimeZone()
+                localNotification.applicationIconBadgeNumber = UIApplication.sharedApplication().applicationIconBadgeNumber + 1
+                
+                UIApplication.sharedApplication().scheduleLocalNotification(localNotification)
+            }
+            else{
+                
+            }
+            
+            
+            
         }
         
     }
@@ -145,9 +200,25 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     
     
-    
-    
-    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+        let point_temp = self.pointList[indexPath.row] as! Point
+        self.trackingPoint = CLLocation(latitude: point_temp.lat!.doubleValue, longitude: point_temp.long!.doubleValue)
+        
+        NSUserDefaults.standardUserDefaults().setObject(point_temp.lat, forKey: "lat")
+        NSUserDefaults.standardUserDefaults().setObject(point_temp.long, forKey: "long")
+        
+        
+        let pointID = point_temp.objectID.URIRepresentation().absoluteString
+        NSUserDefaults.standardUserDefaults().setObject(pointID, forKey: "PointID")
+        
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        
+        //        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        appDelegate.locationManager.delegate = appDelegate
+        appDelegate.locationManager.startUpdatingLocation()
+        appDelegate.locationManager.allowsBackgroundLocationUpdates = true
+    }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
@@ -159,15 +230,20 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = self.tableView.dequeueReusableCellWithIdentifier("DirectionCell", forIndexPath: indexPath) as! DirectionCell
-        cell.selectionStyle = UITableViewCellSelectionStyle.None
+//        cell.selectionStyle = UITableViewCellSelectionStyle.None
         if self.btnReverse.selected {
             let point = self.pointList.reverse()[indexPath.row] as! Point
+            
             cell.lbAddress.text = point.name
         }
         else{
             let point = self.pointList[indexPath.row] as! Point
             cell.lbAddress.text = point.name
+            
+            
+            
         }
+        
         
         
         return cell

@@ -134,6 +134,38 @@ class Utility: NSObject {
         return items
     }
 
+//    static func parsePolylineFromJson() -> [String]? {
+//        
+//        if let path = NSBundle.mainBundle().pathForResource("polyline", ofType: "json")
+//        {
+//            do{
+//
+//                let  jsonData = try NSData(contentsOfFile: path, options: .DataReadingMappedIfSafe)
+//                if let jsonResult: NSDictionary = try NSJSONSerialization.JSONObjectWithData(jsonData, options: NSJSONReadingOptions.MutableContainers) as? NSDictionary
+//                {
+//                    if let routes : NSArray = jsonResult["routes"] as? NSArray
+//                    {
+//                        // Do stuff
+//                        for route in routes{
+//                            route as! 
+//                        }
+//                        
+//                        
+//                        
+//                    }
+//                }
+//                
+//                
+//            }
+//            catch let error as NSError{
+//                print("error loading from url \(path)")
+//                print(error.localizedDescription)
+//            }
+//            
+//           
+//        }
+//        
+//    }
     
 
 }
