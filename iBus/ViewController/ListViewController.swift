@@ -22,7 +22,11 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.edgesForExtendedLayout = UIRectEdge.None
         let btnCity = UIBarButtonItem(title: "HN", style: UIBarButtonItemStyle.Plain, target: self, action:#selector(self.btnCityClicked(_:)));
         self.navigationItem.leftBarButtonItem = btnCity
+        self.navigationItem.title = "IBus"
         
+        self.navigationController?.navigationBar.backgroundColor = UIColor.redColor()
+        self.navigationController?.navigationBar.barTintColor = UIColor.redColor()
+        UINavigationBar.appearance().barTintColor = UIColor.greenColor()
     }
     
     override func viewDidLoad() {
