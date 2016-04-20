@@ -123,7 +123,7 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
                     route.busNumber = item.busNumber
                     route.routeTrip = item.routeTrip
                     route.tripDetail = item.tripDetail
-                    route.polyline = item.polyline
+                    route.polyline = "yxm_CcafeSvArDRAb@HJDNIdBg@JCdAvCLb@Qk@BFxDfK~B`Fr@hAhBrBpClCfCbCtAjBx@hBn@jBbEbNlCrJ~GvUnLda@?RKTSTqBnAmA`A[`@}ArAyFdEcAr@qBt@iBxAkB~AoBxByAvBuBhCl@t@`@]VgA`BoBfAYHK|BnL?j@ECQ?SJGRBTNNT@PI`G\\hFCbEFjELpFBtBB|ERvDRjAc@vDwAzAu@x@KpB?~DItECrAZ~Cv@_@`BkA~Fg@rBaA`GcBrHk@dCxBDn_@N|MHtBAAhBOlGSvMKx@a@bNC~B[|KNvAxA|EC^Vl@F\\Bt@{AxC`@Tv@}ANUd@]bCc@jBp@xSlKpGhDxHrEv@d@jAf@hFzBxL|E`G|BfE~A|@p@f@j@bJ~MxBnDp@tArBjDvNzV`DlFnEbIzCfFzAlCrF`JdCvDlGpK~@nBh@|@zA~AdBhCpNhU~LpRvHvLdMlQjCbD~BfD|HfK|NfSrMfRbDnFdE~FxB~CzCtDfDxD|LrPnKbOfLbPdHvJnZhb@tI|LnApB~DtFxC`ExKfPtBtCdDtElAlBpAfBGHeA`A?JRBd@j@zBxDH@N?p@ONIn@|@iCrBsBbBKBKA"
                     NSManagedObjectContext.MR_defaultContext().MR_saveToPersistentStoreAndWait()
                 }
                 

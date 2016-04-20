@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Alamofire
 
 class Utility: NSObject {
     static  func parseTxtToPoint (path: String, encoding: NSStringEncoding, error: NSErrorPointer) -> [(lat:String, long:String, name: String)]? {
@@ -54,6 +55,7 @@ class Utility: NSObject {
         do {
             let polylines = parseTxtToPolyline()
             
+//            let polylines = parsePolylineFromJson()
             
             
             let mytext = try String(contentsOfFile: path, encoding: NSUTF8StringEncoding)
@@ -106,13 +108,15 @@ class Utility: NSObject {
             var error_:NSError
             
             do {
-                let mytext = try String(contentsOfFile: path)
+                let mytext = try String(contentsOfFile: path, encoding: NSUTF8StringEncoding)
+                
                 print(mytext)   // "some text\n"
                 
-                let lines:[String] = mytext.componentsSeparatedByString("\n==============================\n") as [String]
-                //            let l:[String] = mytext.componentsSeparatedByString("==============================")
+                let lines:[String] = mytext.componentsSeparatedByString("==============================") as [String]
+                
                 for line in lines {
                     if line != "" {
+                        
                         items?.append(line)
                     }
                 }
@@ -134,38 +138,49 @@ class Utility: NSObject {
         return items
     }
 
-//    static func parsePolylineFromJson() -> [String]? {
-//        
-//        if let path = NSBundle.mainBundle().pathForResource("polyline", ofType: "json")
-//        {
-//            do{
-//
-//                let  jsonData = try NSData(contentsOfFile: path, options: .DataReadingMappedIfSafe)
-//                if let jsonResult: NSDictionary = try NSJSONSerialization.JSONObjectWithData(jsonData, options: NSJSONReadingOptions.MutableContainers) as? NSDictionary
-//                {
-//                    if let routes : NSArray = jsonResult["routes"] as? NSArray
-//                    {
-//                        // Do stuff
-//                        for route in routes{
-//                            route as! 
-//                        }
-//                        
-//                        
-//                        
-//                    }
-//                }
-//                
-//                
-//            }
-//            catch let error as NSError{
-//                print("error loading from url \(path)")
-//                print(error.localizedDescription)
-//            }
-//            
-//           
-//        }
-//        
-//    }
+    static func parsePolylineFromJson() -> [String]? {
+        let item:[String] = []
+        if let path = NSBundle.mainBundle().pathForResource("polyline", ofType: "json")
+        {
+            
+            do{
+
+//                let  jsonData = try NSData(contentsOfFile: path, options: [])
+                let s = try String(contentsOfFile: path, encoding: NSUTF8StringEncoding)
+                print(s)
+                let jsonData = s.dataUsingEncoding(NSUTF8StringEncoding)
+                let data = s.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)
+                let ss = String.init(data: jsonData!, encoding: NSUTF8StringEncoding)
+                print(ss)
+                if let jsonResult: NSDictionary = try NSJSONSerialization.JSONObjectWithData(jsonData!, options: .MutableContainers) as? NSDictionary
+                {
+                    if let routes : NSArray = jsonResult["routes"] as? NSArray
+                    {
+                        // Do stuff
+                        for route in routes{
+//                            route as! (busNumber:String , polyline:String)
+                            print (route["busNumber"])
+                            print(route["polyline"])
+                        }
+                        
+                        
+                    }
+                }
+                
+                
+            }
+            catch let error as NSError{
+                print("error loading from url \(path)")
+                print(error.localizedDescription)
+            }
+            
+           
+        }
+        
+        
+        
+        return item
+    }
     
 
 }

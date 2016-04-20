@@ -35,17 +35,7 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.registerNib(UINib(nibName: "DirectionCell", bundle: nil), forCellReuseIdentifier: "DirectionCell")
-        
-        if let pointID = NSUserDefaults.standardUserDefaults().valueForKey("PointID") {
-            for index in 0...pointList.count-1{
-                let point = pointList[index] as! Point
-                if( (pointID as! String) == point.objectID.URIRepresentation().absoluteString){
-                    let cell = tableView.cellForRowAtIndexPath(NSIndexPath(index: index))
-                    cell?.backgroundColor = UIColor.brownColor()
-                }
-            }
-            
-        }
+        self.loadTableData()
         
         let camera = GMSCameraPosition.cameraWithLatitude(21.022693,
                                                           longitude: 105.8018584, zoom: 11)
@@ -197,7 +187,18 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     
-    
+    func loadTableData(){
+        if let pointID = NSUserDefaults.standardUserDefaults().valueForKey("PointID") {
+            for index in 0...pointList.count-1{
+                let point = pointList[index] as! Point
+                if( (pointID as! String) == point.objectID.URIRepresentation().absoluteString){
+                    self.tableView.cellForRowAtIndexPath(NSIndexPath.init(index: index))?.backgroundView?.backgroundColor = UIColor.blackColor()
+                }
+            }
+            
+        }
+//        self.tableView.reloadData()
+    }
     
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -214,7 +215,7 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         
-        //        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        appDelegate.locationManager.desiredAccuracy = kCLLocationAccuracyBest
         appDelegate.locationManager.delegate = appDelegate
         appDelegate.locationManager.startUpdatingLocation()
         appDelegate.locationManager.allowsBackgroundLocationUpdates = true
