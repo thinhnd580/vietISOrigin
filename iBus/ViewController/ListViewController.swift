@@ -23,21 +23,16 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         let btnCity = UIBarButtonItem(title: "HN", style: UIBarButtonItemStyle.Plain, target: self, action:#selector(self.btnCityClicked(_:)));
         self.navigationItem.leftBarButtonItem = btnCity
         self.navigationItem.title = "IBus"
-        
-        self.navigationController?.navigationBar.backgroundColor = UIColor.redColor()
-        self.navigationController?.navigationBar.barTintColor = UIColor.redColor()
-        UINavigationBar.appearance().barTintColor = UIColor.greenColor()
+        self.navigationController?.navigationBar.barTintColor = UIColor.yellowColor()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
+        //register cell
         self.tableView.registerNib(UINib(nibName: "BusCell", bundle: nil), forCellReuseIdentifier: "BusCell")
-        
         self.loadData()
-        self.loadIndicator.superview?.hidden = true
-        
         
         
     }
@@ -80,10 +75,7 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     func btnCityClicked(sender:UIButton){
         
         /* Confic picker */
-        
-        let list = ["HN","HP","DN","HCM"]
-        
-        
+        let list = ["Hà Nội","Hải Phòng","Đà Nẵng","Hồ Chí minh"]
         ActionSheetStringPicker.showPickerWithTitle("City", rows: list, initialSelection: 1, doneBlock: {
             picker, value, index in
             
@@ -98,14 +90,12 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func loadData(){
-        
+        //init enity for the fist time
         self.busList = Route.MR_findAll()
-        
         if( self.busList.count == 0){
             self.preloadData()
             self.busList = Route.MR_findAll()
         }
-        
         
         self.tableView.reloadData()
     }
@@ -114,14 +104,11 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     func preloadData () {
     // Retrieve data from the source file
         if let contentsOfURL = NSBundle.mainBundle().pathForResource("routes", ofType: "txt") {
-            
             // Remove all the menu items before preloading
             removeData()
-            
             var error:NSError?
             if let items = Utility.parseTxtToRoute(contentsOfURL, encoding: NSUTF8StringEncoding, error: &error) {
                 // Preload the menu items
-                
                 for item in items{
                     let route = Route.MR_createEntity() as! Route
                     route.busNumber = item.busNumber
@@ -130,7 +117,6 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
                     route.polyline = "yxm_CcafeSvArDRAb@HJDNIdBg@JCdAvCLb@Qk@BFxDfK~B`Fr@hAhBrBpClCfCbCtAjBx@hBn@jBbEbNlCrJ~GvUnLda@?RKTSTqBnAmA`A[`@}ArAyFdEcAr@qBt@iBxAkB~AoBxByAvBuBhCl@t@`@]VgA`BoBfAYHK|BnL?j@ECQ?SJGRBTNNT@PI`G\\hFCbEFjELpFBtBB|ERvDRjAc@vDwAzAu@x@KpB?~DItECrAZ~Cv@_@`BkA~Fg@rBaA`GcBrHk@dCxBDn_@N|MHtBAAhBOlGSvMKx@a@bNC~B[|KNvAxA|EC^Vl@F\\Bt@{AxC`@Tv@}ANUd@]bCc@jBp@xSlKpGhDxHrEv@d@jAf@hFzBxL|E`G|BfE~A|@p@f@j@bJ~MxBnDp@tArBjDvNzV`DlFnEbIzCfFzAlCrF`JdCvDlGpK~@nBh@|@zA~AdBhCpNhU~LpRvHvLdMlQjCbD~BfD|HfK|NfSrMfRbDnFdE~FxB~CzCtDfDxD|LrPnKbOfLbPdHvJnZhb@tI|LnApB~DtFxC`ExKfPtBtCdDtElAlBpAfBGHeA`A?JRBd@j@zBxDH@N?p@ONIn@|@iCrBsBbBKBKA"
                     NSManagedObjectContext.MR_defaultContext().MR_saveToPersistentStoreAndWait()
                 }
-                
             }
         }
         else{
@@ -139,26 +125,16 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         if let contentsOfURL = NSBundle.mainBundle().pathForResource("goPoints01", ofType: "txt") {
             
-            // Remove all the menu items before preloading
-//            removeData()
-            
             var error:NSError?
             if let items = Utility.parseTxtToPoint(contentsOfURL, encoding: NSUTF8StringEncoding, error: &error) {
                 // Preload the menu items
                 
                 for item in items{
                     let point = Point.MR_createEntity() as! Point
-                    
-
-                    
                     point.lat = NSNumber.init(double: Double(item.lat)!)
                     point.long = NSNumber.init(double: Double(item.long)!)
                     point.name = item.name
-                    
-                    
-//                    point.addRouteObject(<#T##value: Route##Route#>)
                     let route = Route.MR_findFirstByAttribute("busNumber", withValue: "01") as! Route
-                    
                     point.addRouteObject(route)
                     route.addGoPointObject(point)
                     
@@ -170,9 +146,7 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         else{
             print("cann't load data form point.txt")
         }
-        NSManagedObjectContext.MR_defaultContext().MR_saveInBackgroundCompletion { 
-            print("Complete")
-        }
+        
         
     }
     
@@ -197,8 +171,6 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         // Predict Route
         let routePredict = NSPredicate(format: "busNumber CONTAINS[c] %@ OR tripDetail CONTAINS[c] %@", query!, query! )
         let routes:[AnyObject] = Route.MR_findAllWithPredicate(routePredict)
-        
-        
         self.busList = routes
         self.tableView.reloadData()
         

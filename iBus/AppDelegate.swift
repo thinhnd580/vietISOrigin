@@ -23,17 +23,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
-        
+        // genarate google map
+        GMSServices.provideAPIKey("AIzaSyCEbY_9RGrZ9qwJEhi7QKqgab-7fVuOPiw")
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
         window?.makeKeyAndVisible()
         MagicalRecord.setupCoreDataStackWithStoreNamed("Bus")
         
+        
         let ListVC = ListViewController(nibName: "ListViewController", bundle: nil)
         let nav = UINavigationController(rootViewController: ListVC)
+        let mapVC = MapViewController(nibName: "MapViewController", bundle: nil)
+        let tab = UITabBarController()
         
-        window?.rootViewController = nav
-        GMSServices.provideAPIKey("AIzaSyCEbY_9RGrZ9qwJEhi7QKqgab-7fVuOPiw")
-        UIUserNotificationType.Sound
+        tab.viewControllers = [nav,mapVC]
+        nav.tabBarItem = UITabBarItem(title: "Bus List", image: nil, tag: 0)
+        mapVC.tabBarItem = UITabBarItem(title: "Map",image: nil,tag: 1)
+        nav.tabBarController?.tabBar.barTintColor = UIColor.yellowColor()
+        nav.tabBarController?.tabBar.backgroundColor = UIColor.yellowColor()
+        mapVC.tabBarController?.tabBar.barTintColor = UIColor.yellowColor()
+        mapVC.tabBarController?.tabBar.backgroundColor = UIColor.yellowColor()
+        
+        window?.rootViewController = tab
+        
+        
+        
+        //register notification
         if(UIApplication.instancesRespondToSelector(#selector(UIApplication.registerUserNotificationSettings(_:)))) {
             UIApplication.sharedApplication().registerUserNotificationSettings(UIUserNotificationSettings(forTypes:[.Sound,.Alert,] , categories: nil) )
 //            UIApplication.sharedApplication().registerUserNotificationSettings(UIUserNotificationSettings(forTypes: .Alert | .Badge, categories: nil))
@@ -44,8 +58,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestAlwaysAuthorization()
         
-        //TODO stop update when notification on
-//        locationManager.startUpdatingLocation()
+        
         startLocation = CLLocation()
         return true
     }
@@ -61,10 +74,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
         
-        print("BackGround comming in")
-//        self.locationManager.startUpdatingLocation()
-//        UIApplication.beginBackgroundTaskWithExpirationHandler(UIApplication)
-        
     }
 
     func applicationWillEnterForeground(application: UIApplication) {
@@ -74,21 +83,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     func applicationDidBecomeActive(application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
         
-        print("Active comming in")
-        
         
     }
     
     func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
+        
         print("didFailWithError: \(error.description)")
-//        let errorAlert = UIAlertView(title: "Error", message: "Failed to Get Your Location", delegate: nil, cancelButtonTitle: "Ok")
-        //TODO 
         print("Get Location error")
-//        errorAlert.show()
+        
     }
     
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
+        //get selected location
         let lat = NSUserDefaults.standardUserDefaults().valueForKey("lat")
         let long = NSUserDefaults.standardUserDefaults().valueForKey("long")
         
@@ -102,7 +109,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             let distance = trackPoint.distanceFromLocation(newLocation)
             print(distance)
             if(distance < 500){
-                var localNotification = UILocalNotification()
+                let localNotification = UILocalNotification()
                 localNotification.fireDate = NSDate(timeIntervalSinceNow: 5)
                 localNotification.alertBody = "Your bus stop is close, get ready"
                 localNotification.timeZone = NSTimeZone.defaultTimeZone()
@@ -113,7 +120,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
                 self.locationManager.stopUpdatingLocation()
                 NSUserDefaults.standardUserDefaults().removeObjectForKey("lat")
                 NSUserDefaults.standardUserDefaults().removeObjectForKey("long")
-//                NSUserDefaults.standardUserDefaults().removeObjectForKey("PointID")
+                NSUserDefaults.standardUserDefaults().removeObjectForKey("PointID")
+                
+                // Alert when in app
                 let errorAlert = UIAlertView(title: "Warring", message: "Getting close to  your Destination", delegate: nil, cancelButtonTitle: "Ok")
                 errorAlert.show()
             }

@@ -28,23 +28,24 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bn9-oI-s5J">
                     <rect key="frame" x="0.0" y="189" width="320" height="379"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1G5-RV-PeB">
+                        <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1G5-RV-PeB">
                             <rect key="frame" x="15" y="8" width="67" height="30"/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                             <state key="normal" title="Đổi Chiều"/>
                             <connections>
                                 <action selector="btnChangeDirectionClicked:" destination="-1" eventType="touchUpInside" id="B87-QX-2XI"/>
                             </connections>
                         </button>
-                        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="wB1-HW-CiU">
+                        <tableView clipsSubviews="YES" alpha="0.80000000000000004" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="wB1-HW-CiU">
                             <rect key="frame" x="0.0" y="40" width="320" height="339"/>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="backgroundColor" red="0.92941176469999998" green="0.94509803920000002" blue="0.074509803920000006" alpha="0.14580562943262412" colorSpace="calibratedRGB"/>
                             <connections>
                                 <outlet property="dataSource" destination="-1" id="ys6-lj-h8N"/>
                                 <outlet property="delegate" destination="-1" id="mgC-6X-FAV"/>
                             </connections>
                         </tableView>
                     </subviews>
-                    <color key="backgroundColor" red="0.028222155049999999" green="0.70196078429999997" blue="0.85882352939999995" alpha="0.177981895" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" red="0.93333333333333335" green="0.94901960784313721" blue="0.078431372549019607" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="bottom" secondItem="wB1-HW-CiU" secondAttribute="bottom" id="QEH-8B-05g"/>
                         <constraint firstItem="wB1-HW-CiU" firstAttribute="leading" secondItem="Bn9-oI-s5J" secondAttribute="leading" id="azy-NX-jFy"/>

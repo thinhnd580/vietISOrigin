@@ -17,6 +17,8 @@
 		B21634481CBB3A9400497FF2 /* ActionSheetPicker_3_0.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B21634471CBB3A9400497FF2 /* ActionSheetPicker_3_0.framework */; };
 		B27A6C101CBB564F002F787E /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B27A6C0F1CBB564F002F787E /* Alamofire.framework */; };
 		B27A6C141CBB6538002F787E /* Bus.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B27A6C121CBB6538002F787E /* Bus.xcdatamodeld */; };
+		B2B4EC181CC86FB800488C1A /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B4EC161CC86FB800488C1A /* MapViewController.swift */; };
+		B2B4EC191CC86FB800488C1A /* MapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2B4EC171CC86FB800488C1A /* MapViewController.xib */; };
 		B2BE9E481CBF4F54004505C8 /* polyline.txt in Resources */ = {isa = PBXBuildFile; fileRef = B2BE9E471CBF4F54004505C8 /* polyline.txt */; };
 		B2CBC3F41CBDF5670038F199 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2CBC3F31CBDF5670038F199 /* Utility.swift */; };
 		B2DC16141CB79FB90019587C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2DC16131CB79FB90019587C /* AppDelegate.swift */; };
@@ -47,6 +49,8 @@
 		B21634471CBB3A9400497FF2 /* ActionSheetPicker_3_0.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ActionSheetPicker_3_0.framework; path = "Pods/../build/Debug-iphoneos/ActionSheetPicker_3_0.framework"; sourceTree = "<group>"; };
 		B27A6C0F1CBB564F002F787E /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = "../../../../Library/Developer/Xcode/DerivedData/iBus-biyunfwipuozwjfidndifwfidcvb/Build/Products/Debug-iphonesimulator/Alamofire.framework"; sourceTree = "<group>"; };
 		B27A6C131CBB6538002F787E /* Bus.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Bus.xcdatamodel; sourceTree = "<group>"; };
+		B2B4EC161CC86FB800488C1A /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MapViewController.swift; path = ViewController/MapViewController.swift; sourceTree = "<group>"; };
+		B2B4EC171CC86FB800488C1A /* MapViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MapViewController.xib; path = ViewController/MapViewController.xib; sourceTree = "<group>"; };
 		B2BE9E471CBF4F54004505C8 /* polyline.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = polyline.txt; sourceTree = "<group>"; };
 		B2CBC3F31CBDF5670038F199 /* Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Utility.swift; path = Extend/Utility.swift; sourceTree = "<group>"; };
 		B2DC16101CB79FB90019587C /* iBus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iBus.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -161,6 +165,8 @@
 				B2DC162E1CB7A1020019587C /* ListViewController.xib */,
 				B2DC16361CB7AE800019587C /* TripViewController.swift */,
 				B2DC16371CB7AE800019587C /* TripViewController.xib */,
+				B2B4EC161CC86FB800488C1A /* MapViewController.swift */,
+				B2B4EC171CC86FB800488C1A /* MapViewController.xib */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -265,6 +271,7 @@
 				B2DC16301CB7A1020019587C /* ListViewController.xib in Resources */,
 				B2DC16191CB79FB90019587C /* Main.storyboard in Resources */,
 				B2BE9E481CBF4F54004505C8 /* polyline.txt in Resources */,
+				B2B4EC191CC86FB800488C1A /* MapViewController.xib in Resources */,
 				25F0EEDE1CBD507100BE9201 /* routes.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -330,6 +337,7 @@
 				B2EE6C131CBF3F7E0015622F /* Route+CoreDataProperties.swift in Sources */,
 				B2DC16141CB79FB90019587C /* AppDelegate.swift in Sources */,
 				B2DC163E1CB7BBDD0019587C /* DirectionCell.swift in Sources */,
+				B2B4EC181CC86FB800488C1A /* MapViewController.swift in Sources */,
 				25F0EED81CBB4F4300BE9201 /* Point.swift in Sources */,
 				B2CBC3F41CBDF5670038F199 /* Utility.swift in Sources */,
 				B27A6C141CBB6538002F787E /* Bus.xcdatamodeld in Sources */,
